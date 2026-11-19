@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var jump_force: float = 600.0
 @export var gravity: float = 1500.0
 
+@onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+
+
 func _physics_process(delta):
 	# -------------------------
 	# MOVIMENTO HORIZONTAL
@@ -38,22 +41,63 @@ func _physics_process(delta):
 	# -------------------------
 	if not is_on_floor():
 		if velocity.y < 0:
-			$AnimatedSprite2D.play("jump")
+			$AnimatedPlayer2D.play("jump")
 		else:
-			$AnimatedSprite2D.play("fall")
+			$AnimatedPlayer2D.play("fall")
 
 	elif velocity.x != 0:
-		$AnimatedSprite2D.play("walk")
+		$AnimatedPlayer2D.play("walk")
 
 	else:
-		$AnimatedSprite2D.play("idle")
+		$AnimatedPlayer2D.play("idle")
 
 
 	# -------------------------
 	# DIREÇÃO DO PERSONAGEM
 	# -------------------------
 	if velocity.x < 0:
-		$AnimatedSprite2D.flip_h = true
+		$AnimatedPlayer2D.flip_h = true
 
 	elif velocity.x > 0:
-		$AnimatedSprite2D.flip_h = false
+		$AnimatedPlayer2D.flip_h = false
+
+# --------------------------
+# VIDA DO PERSONAGEM
+#---------------------------
+
+@export var vida_maxima: int = 3
+
+var vida_atual: int
+
+var invulneravel: bool = false
+
+
+var morto: bool = false
+
+# Sinais para comunicar alterações de vida a outros nós.
+signal vida_alterada(vida_atual: int, vida_maxima: int)
+signal personagem_morreu
+
+func _ready() -> void:
+	vida_atual = vida_maxima
+	vida_alterada.emit(vida_atual, vida_maxima)
+	$DamageTimer.start()
+	
+func receber_dano(quantidade: int = 1) -> void:
+	if not invulneravel:
+		vida_atual -= quantidade
+		if vida_atual <= 0:
+			personagem_morreu.emit() 
+		else:
+			invulneravel = true
+			$AnimatedShield2D2.visible = true
+			$AnimatedShield2D2.play("default")
+			invulnerability_timer.start()
+			
+func _on_invulnerability_timer_timeout() -> void:
+	$AnimatedShield2D2.visible = false
+	$AnimatedShield2D2.stop()
+
+
+func _on_damage_timer_timeout() -> void:
+	receber_dano()
