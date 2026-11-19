@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bl7prc8ruuwmt"]
+
+[ext_resource type="Texture2D" uid="uid://dpmf3w8ip5prp" path="res://platformer_metroidvania asset pack v1.01/tiles and background_foreground (new)/bg_0.png" id="1_vqsky"]
+[ext_resource type="Texture2D" uid="uid://cdrlou7sia7v7" path="res://platformer_metroidvania asset pack v1.01/tiles and background_foreground (new)/bg_1.png" id="2_lv0es"]
+[ext_resource type="Texture2D" uid="uid://c610bio4k71rp" path="res://platformer_metroidvania asset pack v1.01/tiles and background_foreground (new)/bg_2.png" id="3_17kvl"]
+
+[node name="Florest-background" type="Node2D" unique_id=1569551011]
+
+[node name="camada3" type="Parallax2D" parent="." unique_id=596591452]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(310, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="camada3" unique_id=59726951]
+texture_repeat = 2
+scale = Vector2(1.3, 2)
+texture = ExtResource("1_vqsky")
+
+[node name="camada2" type="Parallax2D" parent="." unique_id=317660397]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(310, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="camada2" unique_id=247740387]
+texture_repeat = 2
+scale = Vector2(1.3, 2)
+texture = ExtResource("2_lv0es")
+
+[node name="camada1" type="Parallax2D" parent="." unique_id=743729854]
+scroll_scale = Vector2(0.9, 0.9)
+repeat_size = Vector2(310, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="camada1" unique_id=1707553520]
+texture_repeat = 2
+position = Vector2(2, 39)
+scale = Vector2(1.3, 1.9)
+texture = ExtResource("3_17kvl")

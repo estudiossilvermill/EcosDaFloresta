@@ -176,7 +176,10 @@ debug_color = Color(0.31428668, 0.3255781, 0.2977725, 0.41960785)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=278475620]
 sprite_frames = SubResource("SpriteFrames_l0mw4")
-animation = &"fall"
+animation = &"walk"
+frame = 5
+frame_progress = 0.667123
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1633354496]
+position = Vector2(0, -19.870102)
 zoom = Vector2(2, 2)
