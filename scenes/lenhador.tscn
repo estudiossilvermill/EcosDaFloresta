@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://css4re54yl0fj"]
 
 [ext_resource type="Texture2D" uid="uid://bj37jcjsus7yb" path="res://Dwarf Sprite Sheet 1.3v.png" id="1_jkp4r"]
+[ext_resource type="Script" uid="uid://cloxunjo67kb1" path="res://scenes/flow.gd" id="1_kbg2e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ntayv"]
+radius = 74.24284
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l0mw4"]
 height = 34.0
@@ -332,15 +336,26 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="lenhador" type="CharacterBody2D" unique_id=739108681]
+[node name="lenhador" type="CharacterBody2D" unique_id=739108681 groups=["inimigo"]]
+script = ExtResource("1_kbg2e")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1818075653]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1339037485]
+shape = SubResource("CircleShape2D_ntayv")
+debug_color = Color(0.9991538, 0, 0.13517481, 0.41960785)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1276168059]
 position = Vector2(1, 8)
 shape = SubResource("CapsuleShape2D_l0mw4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=966868887]
+[node name="spriteLenhador" type="AnimatedSprite2D" parent="." unique_id=966868887]
 position = Vector2(1.0000005, 2.0000005)
 scale = Vector2(1.2500001, 1.5624999)
 sprite_frames = SubResource("SpriteFrames_ntayv")
 animation = &"idle"
 frame_progress = 0.3253124
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
